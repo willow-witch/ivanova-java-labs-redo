@@ -1,0 +1,6 @@
+нояб. 08, 2022 4:29:08 PM lab2.registration.service.LoggerService WriteLogsInfo
+INFO: Студент 102 записан на курс 10123!
+нояб. 08, 2022 4:29:08 PM lab2.registration.service.LoggerService WriteLogsInfo
+INFO: Студент 102 отписан от курса 10123!
+нояб. 08, 2022 4:29:08 PM lab2.registration.service.LoggerService WriteLogsInfo
+INFO: Студент 102 подписан на курсы:[100003]

@@ -20,25 +20,31 @@ public class Helper {
      * @param studentId идентификатор студента
      * @return объект Student с данным studentId
      */
-    public Student findStudentByStudentId(long studentId) throws IOException {
-
-        StudentDataReader studentDataReader = new StudentDataReader();
-        Student[] bachelorStudents = studentDataReader.readBachelorStudentData();
-        Student[] masterStudents = studentDataReader.readMasterStudentData();
+    public Student findStudentByStudentId(long studentId){
         Student targetStudent = new Student();
 
-        for(int i=0; i<bachelorStudents.length; i++){
-            if (bachelorStudents[i].getId() == studentId){
-                targetStudent = bachelorStudents[i];
-                targetStudent.setStudentCategory(StudentCategory.BACHELOR);
+        try{
+            StudentDataReader studentDataReader = new StudentDataReader();
+            Student[] bachelorStudents = studentDataReader.readBachelorStudentData();
+            Student[] masterStudents = studentDataReader.readMasterStudentData();
+
+
+            for(int i=0; i<bachelorStudents.length; i++){
+                if (bachelorStudents[i].getId() == studentId){
+                    targetStudent = bachelorStudents[i];
+                    targetStudent.setStudentCategory(StudentCategory.BACHELOR);
+                }
             }
-        }
-        for(int i=0; i<masterStudents.length; i++){
-            if (masterStudents[i].getId() == studentId){
-                targetStudent = masterStudents[i];
-                targetStudent.setStudentCategory(StudentCategory.MASTER);
+            for(int i=0; i<masterStudents.length; i++){
+                if (masterStudents[i].getId() == studentId){
+                    targetStudent = masterStudents[i];
+                    targetStudent.setStudentCategory(StudentCategory.MASTER);
+                }
             }
+        } catch (IOException e){
+            e.printStackTrace();
         }
+
 
         return targetStudent;
     }
@@ -49,26 +55,32 @@ public class Helper {
      * @param courseId идентификатор курса
      * @return объект CourseInstance с данным courseId
      */
-    public CourseInstance findCourseInstanceByCourseId(long courseId) throws IOException {
+    public CourseInstance findCourseInstanceByCourseId(long courseId) {
 
-        CourseInstanceDataReader instanceReader = new CourseInstanceDataReader();
-        CourseInstance[] courseInstances = instanceReader.readCourseInstanceData();
-        List<CourseInstance> possibleInstances = new ArrayList<>();
         CourseInstance targetCourseInstance = new CourseInstance();
+        try{
+            CourseInstanceDataReader instanceReader = new CourseInstanceDataReader();
+            CourseInstance[] courseInstances = instanceReader.readCourseInstanceData();
+            List<CourseInstance> possibleInstances = new ArrayList<>();
 
-        LocalDate now = LocalDate.now();
 
-        for(int i=0; i<courseInstances.length; i++){
-            if (courseInstances[i].getCourseId() == courseId){
-                possibleInstances.add(courseInstances[i]);
+            LocalDate now = LocalDate.now();
+
+            for(int i=0; i<courseInstances.length; i++){
+                if (courseInstances[i].getCourseId() == courseId){
+                    possibleInstances.add(courseInstances[i]);
+                }
             }
+
+            if (possibleInstances.stream().filter(i -> i.getStartDate().isAfter(now)).toArray().length != 0){
+                targetCourseInstance = possibleInstances.stream().filter(i -> i.getStartDate().isAfter(now)).findFirst().get();
+            } else {
+                targetCourseInstance = possibleInstances.stream().findFirst().get();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
 
-        if (possibleInstances.stream().filter(i -> i.getStartDate().isAfter(now)).toArray().length != 0){
-            targetCourseInstance = possibleInstances.stream().filter(i -> i.getStartDate().isAfter(now)).findFirst().get();
-        } else {
-            targetCourseInstance = possibleInstances.stream().findFirst().get();
-        }
 
         return targetCourseInstance;
     }
@@ -79,18 +91,24 @@ public class Helper {
      * @param instanceId идентификатор курса
      * @return объект CourseInstance с данным courseId
      */
-    public CourseInstance findCourseInstanceByInstanceId(long instanceId) throws IOException {
+    public CourseInstance findCourseInstanceByInstanceId(long instanceId) {
 
-        CourseInstanceDataReader instanceReader = new CourseInstanceDataReader();
-        CourseInstance[] courseInstances = instanceReader.readCourseInstanceData();
         CourseInstance targetCourseInstance = new CourseInstance();
 
-        LocalDate now = LocalDate.now();
+        try {
+            CourseInstanceDataReader instanceReader = new CourseInstanceDataReader();
+            CourseInstance[] courseInstances = instanceReader.readCourseInstanceData();
 
-        for(int i=0; i<courseInstances.length; i++){
-            if (courseInstances[i].getId() == instanceId){
-                targetCourseInstance = courseInstances[i];
+
+            LocalDate now = LocalDate.now();
+
+            for(int i=0; i<courseInstances.length; i++){
+                if (courseInstances[i].getId() == instanceId){
+                    targetCourseInstance = courseInstances[i];
+                }
             }
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
         return targetCourseInstance;
@@ -103,38 +121,51 @@ public class Helper {
      * @param courseId идентификатор курса
      * @return объект CourseInfo с данным courseId
      */
-    public CourseInfo findCourseInfoByCourseId(long courseId) throws IOException {
+    public CourseInfo findCourseInfoByCourseId(long courseId) {
 
-        CourseInfoDataReader infoReader = new CourseInfoDataReader();
-        CourseInfo[] courseInfos = infoReader.readCourseInfoData();
         CourseInfo targetCourseInfo = new CourseInfo();
 
+        try {
+            CourseInfoDataReader infoReader = new CourseInfoDataReader();
+            CourseInfo[] courseInfos = infoReader.readCourseInfoData();
 
-        for(int i=0; i<courseInfos.length; i++){
-            if (courseInfos[i].getId() == courseId){
-                targetCourseInfo = courseInfos[i];
+
+            for(int i=0; i<courseInfos.length; i++){
+                if (courseInfos[i].getId() == courseId){
+                    targetCourseInfo = courseInfos[i];
+                }
             }
+        } catch (IOException e){
+            e.printStackTrace();
         }
+
 
         return targetCourseInfo;
     }
 
-    public Instructor findInstructorByInstructorId(long instructorId) throws IOException {
+    public Instructor findInstructorByInstructorId(long instructorId) {
 
-        InstructorDataReader instructorDataReader = new InstructorDataReader();
-        Instructor[] instructors = instructorDataReader.readInstructorData();
         Instructor targetInstructor = new Instructor();
 
-        for(int i=0; i<instructors.length; i++){
-            if (instructors[i].getId() == instructorId){
-                targetInstructor = instructors[i];
+        try {
+            InstructorDataReader instructorDataReader = new InstructorDataReader();
+            Instructor[] instructors = instructorDataReader.readInstructorData();
+
+
+            for(int i=0; i<instructors.length; i++){
+                if (instructors[i].getId() == instructorId){
+                    targetInstructor = instructors[i];
+                }
             }
+        } catch (IOException e){
+            e.printStackTrace();
         }
+
 
         return targetInstructor;
     }
 
-    public List<Long> findStudentSubscribedOnCourse(long instanceId, Multimap<Long, Long> studentsSubscribedOnCourses) throws IOException {
+    public List<Long> findStudentSubscribedOnCourse(long instanceId, Multimap<Long, Long> studentsSubscribedOnCourses) {
 
         List<Long> result = new ArrayList<>();
 
