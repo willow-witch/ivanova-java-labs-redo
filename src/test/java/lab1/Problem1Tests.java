@@ -1,6 +1,6 @@
 package test.java.lab1;
 
-import lab1.Problem1;
+import main.java.lab1.Problem1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

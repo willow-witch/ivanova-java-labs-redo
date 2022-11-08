@@ -1,7 +1,7 @@
-package lab1;
+package test.java.lab1;
 
 import org.junit.jupiter.api.Test;
-
+import main.java.lab1.Problem5;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
