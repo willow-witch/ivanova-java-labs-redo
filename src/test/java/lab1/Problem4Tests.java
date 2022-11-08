@@ -1,8 +1,9 @@
-package lab1;
+package test.java.lab1;
 
-import com.google.common.primitives.Ints;
+import main.java.lab1.Problem4;
 import org.junit.jupiter.api.Test;
 
+import com.google.common.primitives.Ints;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

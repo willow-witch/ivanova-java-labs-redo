@@ -1,4 +1,4 @@
-package lab1;
+package main.java.lab1;
 
 import java.util.Arrays;
 public class Problem5 {
@@ -20,28 +20,17 @@ public class Problem5 {
      * Выход: true (так как в результате перестановки элементов можно получить геометрическую прогрессию [1,2,4,8,16])
      *
      * ПРИМЕР3:
-     * Вход: numbers = "4,6,9"
+     * Вход: numbers = "2,3,5"
      * Выход: false
      */
     public static boolean isGeometricProgression(String numbers) {
 
-        if (numbers == "") return false;
-
         int[] intList = Arrays.stream(numbers.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
         Arrays.sort(intList);
 
-        if (intList.length == 1) return true;
-
-        int floorMult = (int) Math.floor(1.0*intList[1]/intList[0]);
-        int ceilMult = (int) Math.floor(1.0*intList[1]/intList[0]);
-
-        if (floorMult != ceilMult) return false;
-
+        int multiplier = intList[1]/intList[0];
         for (int i = 1; i < intList.length-1; i++) {
-
-            if(Math.floor(1.0*intList[i+1]/intList[i]) != floorMult ||
-                    Math.ceil(1.0*intList[i+1]/intList[i]) != ceilMult ||
-                    Math.floor(1.0*intList[i+1]/intList[i]) != Math.ceil(1.0*intList[i+1]/intList[i])){
+            if(intList[i+1]/intList[i] != multiplier){
                 return false;
             }
         }

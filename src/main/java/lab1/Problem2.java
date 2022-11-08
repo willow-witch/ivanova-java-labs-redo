@@ -1,4 +1,4 @@
-package lab1;
+package main.java.lab1;
 
 import com.google.common.primitives.Ints;
 

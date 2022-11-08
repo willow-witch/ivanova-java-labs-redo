@@ -1,4 +1,4 @@
-package lab1;
+package main.java.lab1;
 
 public class Problem1 {
 

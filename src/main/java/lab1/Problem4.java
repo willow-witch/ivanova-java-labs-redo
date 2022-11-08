@@ -1,9 +1,8 @@
-package lab1;
+package main.java.lab1;
 
 import com.google.common.primitives.Ints;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Problem4 {
@@ -24,15 +23,6 @@ public class Problem4 {
     public static int[] flattenMatrix(int[][] matrix) {
 
         List<Integer> result = new ArrayList<>();
-
-        if (matrix == null || matrix.length == 0){
-            return Ints.toArray(result);
-        }
-
-        if (matrix[0].length == 0){
-            return Ints.concat(matrix);
-        }
-
         for (int i = 0; i < matrix[0].length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 result.add(matrix[j][i]);
