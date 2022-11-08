@@ -41,6 +41,6 @@ public interface StudentService {
      * @param studentId идентификатор студента
      * @return список всех курсов, на которые записан студент
      */
-    List<CourseInstance> findAllSubscriptionsByStudentId(long studentId, Multimap<Long, Long> studentsSubscribedOnCourses);
+    List<CourseInstance> findAllSubscriptionsByStudentId(long studentId, Multimap<Long, Long> studentsSubscribedOnCourses) throws ExceptionService;
     
 }
